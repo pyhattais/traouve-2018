@@ -8,18 +8,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends BaseController
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/default", name="default")
      */
-    public function homepage()
+    public function index()
     {
-
-        $books = $this->getDoctrine()->getRepository(Book::class)->findLast(6);
-
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findBy(array(), array('name' => 'ASC'));
-
-        return $this->render('default/homepage.html.twig', [
-            "books" => $books,
-            "categories" => $categories
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
         ]);
     }
 }

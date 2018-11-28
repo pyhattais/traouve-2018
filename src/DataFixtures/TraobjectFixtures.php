@@ -14,9 +14,9 @@ class TraobjectFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $medor = new Traobject();
-        $medor->setTitle("Medor");
-        $medor->setPicture("https://www.placecage.com/g/100/100");
-        $medor->setDescription("J'ai perdu mon chien Medor");
+        $medor->setTitle("Medor le labrador");
+        $medor->setPicture("labrador.jpg");
+        $medor->setDescription("J'ai perdu mon chien Medor, un labrador beige");
         $medor->setEventAt(new \DateTime());
         $medor->setCity("Vannes");
         $medor->setAddress("Rue du vieux port");
@@ -29,9 +29,9 @@ class TraobjectFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference('traobject-1', $medor);
 
         $doudou = new Traobject();
-        $doudou->setTitle("Doudou");
-        $doudou->setPicture("https://www.placecage.com/g/100/100");
-        $doudou->setDescription("J'ai perdu mon super doudou");
+        $doudou->setTitle("Michou le Doudou");
+        $doudou->setPicture("doudou.jpg");
+        $doudou->setDescription("J'ai perdu mon super doudou Michou, il est bleu et tout doux");
         $doudou->setEventAt(new \DateTime());
         $doudou->setCity("Rennes");
         $doudou->setAddress("Place des lices");
@@ -43,10 +43,25 @@ class TraobjectFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($doudou);
         $this->addReference('traobject-2', $doudou);
 
+        $clesappt = new Traobject();
+        $clesappt->setTitle("Clés d'appartement");
+        $clesappt->setPicture("cles.jpg");
+        $clesappt->setDescription("J'ai perdu mes clés, avec plusieurs badges et un porte clés bleu");
+        $clesappt->setEventAt(new \DateTime());
+        $clesappt->setCity("Lannion");
+        $clesappt->setAddress("Rue du vieux bourg");
+        $clesappt->setCreatedAt(new \DateTime());
+        $clesappt->setCategory($this->getReference('category-1'));
+        $clesappt->setState($this->getReference('state-2'));
+        $clesappt->setUser($this->getReference('user-3'));
+        $clesappt->setCounty($this->getReference('county-3'));
+        $manager->persist($clesappt);
+        $this->addReference('traobject-3', $clesappt);
+
         $cartebancaire = new Traobject();
-        $cartebancaire->setTitle("Carte bancaire");
-        $cartebancaire->setPicture("https://www.placecage.com/g/100/100");
-        $cartebancaire->setDescription("J'ai trouvé une carte bancaire");
+        $cartebancaire->setTitle("Carte bancaire Mastercard");
+        $cartebancaire->setPicture("cartebancaire.jpg");
+        $cartebancaire->setDescription("J'ai trouvé une carte bancaire, de la marque Mastercard, banque Crédit Agricole");
         $cartebancaire->setEventAt(new \DateTime());
         $cartebancaire->setCity("Brest");
         $cartebancaire->setAddress("Place du port");
@@ -56,12 +71,12 @@ class TraobjectFixtures extends Fixture implements DependentFixtureInterface
         $cartebancaire->setUser($this->getReference('user-3'));
         $cartebancaire->setCounty($this->getReference('county-1'));
         $manager->persist($cartebancaire);
-        $this->addReference('traobject-3', $cartebancaire);
+        $this->addReference('traobject-4', $cartebancaire);
 
         $badge = new Traobject();
-        $badge->setTitle("Badge");
-        $badge->setPicture("https://www.placecage.com/g/100/100");
-        $badge->setDescription("J'ai trouvé un badge et des clés");
+        $badge->setTitle("Badges et clés");
+        $badge->setPicture("");
+        $badge->setDescription("J'ai trouvé un trousseau avec des badges et des clés, avec un poste clé rouge");
         $badge->setEventAt(new \DateTime());
         $badge->setCity("Rennes");
         $badge->setAddress("Avenue du Mail Mitterand");
@@ -71,7 +86,22 @@ class TraobjectFixtures extends Fixture implements DependentFixtureInterface
         $badge->setUser($this->getReference('user-1'));
         $badge->setCounty($this->getReference('county-4'));
         $manager->persist($badge);
-        $this->addReference('traobject-4', $badge);
+        $this->addReference('traobject-5', $badge);
+
+        $gaston = new Traobject();
+        $gaston->setTitle("Gaston le chat");
+        $gaston->setPicture("chatroux.jpg");
+        $gaston->setDescription("J'ai trouvé un chat roux, du nom de Gaston");
+        $gaston->setEventAt(new \DateTime());
+        $gaston->setCity("Rennes");
+        $gaston->setAddress("Parc du Thabor");
+        $gaston->setCreatedAt(new \DateTime());
+        $gaston->setCategory($this->getReference('category-4'));
+        $gaston->setState($this->getReference('state-1'));
+        $gaston->setUser($this->getReference('user-2'));
+        $gaston->setCounty($this->getReference('county-4'));
+        $manager->persist($gaston);
+        $this->addReference('traobject-6', $gaston);
 
         $manager->flush();
     }

@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * User
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface
 {
@@ -187,10 +187,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function __toString()
-    {
-        return $this->getEmail();
-    }
 
 
     /**
@@ -245,6 +241,16 @@ class User implements UserInterface
     {
         $this->picture = $picture;
         return $this;
+    }
+
+    public function getFullname(): string
+    {
+        return $this->getFirstname() . " " . $this->getLastname();
+    }
+
+    public function __toString()
+    {
+        return $this->getFullname();
     }
 
 

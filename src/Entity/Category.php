@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Category
  *
  * @ORM\Table(name="category")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
 class Category
 {
@@ -115,6 +115,10 @@ class Category
     }
 
 
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
 
 
 }

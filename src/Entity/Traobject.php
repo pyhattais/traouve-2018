@@ -8,7 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
  * Traobject
  *
  * @ORM\Table(name="traobject", indexes={@ORM\Index(name="fk_traobject_category_idx", columns={"category_id"}), @ORM\Index(name="fk_traobject_state1_idx", columns={"state_id"}), @ORM\Index(name="fk_traobject_user1_idx", columns={"user_id"}), @ORM\Index(name="fk_traobject_county1_idx", columns={"county_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\TraobjectRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Traobject
 {
@@ -145,7 +146,7 @@ class Traobject
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -199,7 +200,7 @@ class Traobject
     /**
      * @return \DateTime
      */
-    public function getEventAt(): \DateTime
+    public function getEventAt(): ?\DateTime
     {
         return $this->eventAt;
     }
@@ -235,7 +236,7 @@ class Traobject
     /**
      * @return string
      */
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
@@ -271,7 +272,7 @@ class Traobject
     /**
      * @return \DateTime
      */
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
@@ -307,7 +308,7 @@ class Traobject
     /**
      * @return Category
      */
-    public function getCategory(): Category
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
@@ -325,7 +326,7 @@ class Traobject
     /**
      * @return County
      */
-    public function getCounty(): County
+    public function getCounty(): ?County
     {
         return $this->county;
     }
@@ -343,7 +344,7 @@ class Traobject
     /**
      * @return State
      */
-    public function getState(): State
+    public function getState(): ?State
     {
         return $this->state;
     }
@@ -361,7 +362,7 @@ class Traobject
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -376,5 +377,25 @@ class Traobject
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate()
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
 
 }

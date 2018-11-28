@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Message
  *
  * @ORM\Table(name="message", indexes={@ORM\Index(name="fk_message_user1_idx", columns={"user_form"}), @ORM\Index(name="fk_message_user2_idx", columns={"user_to"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\MessageRepository")
  */
 class Message
 {
@@ -145,7 +145,10 @@ class Message
         return $this;
     }
 
-
+    public function __toString()
+    {
+        return $this->getContent();
+    }
 
 
 

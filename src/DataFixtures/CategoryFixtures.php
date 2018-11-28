@@ -27,7 +27,7 @@ class CategoryFixtures extends Fixture
 
         $portefeuille = new Category();
         $portefeuille->setLabel("Portefeuille");
-        $portefeuille->setIcon("fa-wallet");
+        $portefeuille->setIcon("fa-money");
         $portefeuille->setColor("#ce1d24");
         $manager->persist($portefeuille);
         $this->addReference('category-3', $portefeuille);

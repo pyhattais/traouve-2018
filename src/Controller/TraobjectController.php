@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Traobject;
+use App\Entity\State;
 use App\Form\TraobjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,17 +15,30 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TraobjectController extends BaseController
 {
-    /**
-     * @Route("/", name="traobject_index", methods="GET")
-     */
-    public function index(): Response
-    {
-        $traobjects = $this->getDoctrine()
-            ->getRepository(Traobject::class)
-            ->findAll();
 
-        return $this->render('traobject/index.html.twig', ['traobjects' => $traobjects]);
+
+    /**
+     * @Route("/lost", name="traobjects_lost")
+     */
+    public function losts(): Response
+    {
+        $traobjects_lost = $this->getDoctrine()->getRepository(Traobject::class)->findTraobjectByState(State::LOST);
+
+
+        return $this->render('traobject/traobjects_lost.html.twig', ["traobjects_lost" => $traobjects_lost]);
     }
+
+    /**
+     * @Route("/found", name="traobjects_found")
+     */
+    public function founds(): Response
+    {
+        $traobjects_found = $this->getDoctrine()->getRepository(Traobject::class)->findTraobjectByState(State::FOUND);
+
+
+        return $this->render('traobject/traobjects_found.html.twig', ["traobjects_found" => $traobjects_found]);
+    }
+
 
     /**
      * @Route("/new", name="traobject_new", methods="GET|POST")
@@ -40,7 +54,7 @@ class TraobjectController extends BaseController
             $em->persist($traobject);
             $em->flush();
 
-            return $this->redirectToRoute('traobject_index');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('traobject/new.html.twig', [
@@ -56,6 +70,7 @@ class TraobjectController extends BaseController
     {
         return $this->render('traobject/show.html.twig', ['traobject' => $traobject]);
     }
+
 
     /**
      * @Route("/{id}/edit", name="traobject_edit", methods="GET|POST")

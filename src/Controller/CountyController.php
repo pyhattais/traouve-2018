@@ -90,4 +90,13 @@ class CountyController extends BaseController
 
         return $this->redirectToRoute('county_index');
     }
+
+    public function footerCounty()
+    {
+        $counties = $this->getDoctrine()->getRepository(County::class)->findAll();
+
+        return $this->render('county/footer_county.html.twig', [
+            "counties" => $counties
+        ]);
+    }
 }

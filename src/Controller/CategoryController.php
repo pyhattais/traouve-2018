@@ -90,4 +90,13 @@ class CategoryController extends BaseController
 
         return $this->redirectToRoute('category_index');
     }
+
+    public function footerCategory()
+    {
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+
+        return $this->render('category/footer_category.html.twig', [
+            "categories" => $categories
+        ]);
+    }
 }

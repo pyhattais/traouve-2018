@@ -1,0 +1,70 @@
+easy_admin:
+    entities:
+        Traobject:
+            class: App\Entity\Traobject
+            label: 'Traobjets'
+            list:
+                title: 'Liste des objets'
+                fields:
+                - { property: 'id' }
+                - { property: 'title' }
+                - { property: 'state' }
+                - { property: 'description' }
+                - { property: 'eventAt' }
+                - { property: 'city' }
+                - { property: 'address' }
+                - { property: 'category' }
+                - { property: 'county' }
+                - { property: 'picture', type: 'image', base_path: '%app.path.traobject_pictures%' }
+            show:
+                fields:
+                - { property: 'picture', type: 'image', base_path: '%app.path.traobject_pictures%' }
+            form:
+                fields:
+                - { property: 'title' }
+                - { property: 'state' }
+                - { property: 'description' }
+                - { property: 'eventAt' }
+                - { property: 'city' }
+                - { property: 'address' }
+                - { property: 'category' }
+                - { property: 'county' }
+                - { property: 'pictureFile', type: 'vich_image' }
+        User:
+            class: App\Entity\User
+            label: 'Utilisateurs'
+            list:
+                title: 'Liste des utilisateurs'
+                fields:
+                - { property: 'id' }
+                - { property: 'firstname' }
+                - { property: 'lastname' }
+                - { property: 'email' }
+                - { property: 'roles' }
+                - { property: 'phone' }
+                - { property: 'picture', type: 'image', base_path: '%app.path.user_pictures%' }
+            show:
+                fields:
+                - { property: 'picture', type: 'image', base_path: '%app.path.user_pictures%' }
+            form:
+                fields:
+                - { property: 'firstname' }
+                - { property: 'lastname' }
+                - { property: 'email' }
+                - { property: 'phone' }
+                - { property: 'pictureFile', type: 'vich_image' }
+        Category:
+            class: App\Entity\Category
+            label: 'Catégories'
+            list:
+                title: 'Liste des catégories'
+        County:
+            class: App\Entity\County
+            label: 'Départements'
+            list:
+                title: 'Liste des départements'
+        Comment:
+            class: App\Entity\Comment
+            label: 'Commentaires'
+            list:
+                title: 'Liste des commentaires'

@@ -3,6 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Traobject
@@ -10,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="traobject", indexes={@ORM\Index(name="fk_traobject_category_idx", columns={"category_id"}), @ORM\Index(name="fk_traobject_state1_idx", columns={"state_id"}), @ORM\Index(name="fk_traobject_user1_idx", columns={"user_id"}), @ORM\Index(name="fk_traobject_county1_idx", columns={"county_id"})})
  * @ORM\Entity(repositoryClass="App\Repository\TraobjectRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  */
 class Traobject
 {
@@ -33,8 +38,16 @@ class Traobject
      * @var string|null
      *
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     * @Assert\Image(mimeTypes={ "image/jpeg", "image/jpg", "image/png"  }, mimeTypesMessage = "Extension valide : .jpeg .png .jpg")
      */
     private $picture;
+
+    /**
+     * @Vich\UploadableField(mapping="traobject_pictures", fileNameProperty="picture")
+     * @var File
+     * @Assert\Image(mimeTypes={ "image/jpeg", "image/jpg", "image/png"  }, mimeTypesMessage = "Extension valide : .jpeg .png .jpg")
+     */
+    private $pictureFile;
 
     /**
      * @var string|null
@@ -125,10 +138,12 @@ class Traobject
      */
     private $user;
 
+
+
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -159,6 +174,24 @@ class Traobject
     {
         $this->title = $title;
         return $this;
+    }
+
+    public function setPictureFile(File $picture = null)
+    {
+        $this->pictureFile = $picture;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($picture) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getPictureFile()
+    {
+        return $this->pictureFile;
     }
 
     /**

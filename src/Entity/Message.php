@@ -58,7 +58,7 @@ class Message
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -76,7 +76,7 @@ class Message
     /**
      * @return string
      */
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -94,7 +94,7 @@ class Message
     /**
      * @return string
      */
-    public function getCreatedAt(): string
+    public function getCreatedAt(): ?string
     {
         return $this->createdAt;
     }
@@ -112,7 +112,7 @@ class Message
     /**
      * @return User
      */
-    public function getUserForm(): User
+    public function getUserForm(): ?User
     {
         return $this->userForm;
     }
@@ -130,7 +130,7 @@ class Message
     /**
      * @return User
      */
-    public function getUserTo(): User
+    public function getUserTo(): ?User
     {
         return $this->userTo;
     }
@@ -150,6 +150,13 @@ class Message
         return $this->getContent();
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
 
 
 }

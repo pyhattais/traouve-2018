@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Traobject;
 use App\Entity\State;
 use App\Form\TraobjectType;
@@ -51,6 +52,9 @@ class TraobjectController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $traobject->setUser($this->getUser());
+
             $em->persist($traobject);
             $em->flush();
 
@@ -68,7 +72,9 @@ class TraobjectController extends BaseController
      */
     public function show(Traobject $traobject): Response
     {
-        return $this->render('traobject/show.html.twig', ['traobject' => $traobject]);
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(['traobject' => $traobject]);
+
+        return $this->render('traobject/show.html.twig', ['comments' => $comments, 'traobject' => $traobject]);
     }
 
 

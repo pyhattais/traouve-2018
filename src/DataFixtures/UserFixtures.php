@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
         $marie->setEmail("m.martin@gmail.com");
         $marie->setPassword($this->passwordEncoder->encodePassword($marie, "mmartin"));
         $marie->setPhone("0634675245");
-        $marie->setPicture("https://www.placecage.com/g/100/100");
+        $marie->setPicture("marie.jpg");
         $marie->setRoles(["ROLE_USER"]);
         $manager->persist($marie);
         $this->addReference('user-1', $marie);
@@ -38,7 +38,7 @@ class UserFixtures extends Fixture
         $jacques->setEmail("j.dupont@gmail.com");
         $jacques->setPassword($this->passwordEncoder->encodePassword($jacques, "jdupont"));
         $jacques->setPhone("0634675275");
-        $jacques->setPicture("https://www.placecage.com/g/100/100");
+        $jacques->setPicture("jacques.jpg");
         $jacques->setRoles(["ROLE_USER"]);
         $manager->persist($jacques);
         $this->addReference('user-2', $jacques);
@@ -49,7 +49,7 @@ class UserFixtures extends Fixture
         $pyh->setEmail("py.hattais@gmail.com");
         $pyh->setPassword($this->passwordEncoder->encodePassword($pyh, "pyhattais"));
         $pyh->setPhone("0634675293");
-        $pyh->setPicture("https://www.placecage.com/g/100/100");
+        $pyh->setPicture("py.jpg");
         $pyh->setRoles(["ROLE_ADMIN"]);
         $manager->persist($pyh);
         $this->addReference('user-3', $pyh);

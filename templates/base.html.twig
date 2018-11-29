@@ -13,11 +13,13 @@
 
     <div class="fixed-top d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal">
+            <a class="navbar-brand" href="{{ path('homepage') }}">
         <span class="fa-stack fa-lg text-primary">
           <i class="fa fa-square fa-stack-2x"></i>
           <i class="fa fa-search fa-stack-1x fa-inverse"></i>
         </span>
-            Traoùvé
+                Traoùvé
+            </a>
         </h5>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="{{ path('homepage') }}">Accueil</a>
@@ -27,6 +29,9 @@
             <a class="p-2 text-dark" href="{{ path('traobjects_lost') }}">Objets perdus</a>
             <a class="p-2 text-dark" href="{{ path('traobjects_found') }}">Objets trouvés</a>
         </nav>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('admin') }}" class="btn btn-success mr-3">Interface d'administration</a>
+        {% endif %}
         {% if app.user %}
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                aria-haspopup="true" aria-expanded="false">
@@ -77,11 +82,14 @@
             <div class="row">
                 <div class="col-12 col-md">
                     <h5 class="my-0 mr-md-auto font-weight-normal">
+                        <a class="navbar-brand" href="{{ path('homepage') }}">
+
                     <span class="fa-stack fa-lg text-primary">
                       <i class="fa fa-square fa-stack-2x"></i>
                       <i class="fa fa-search fa-stack-1x fa-inverse"></i>
                     </span>
-                        Traoùvé
+                            Traoùvé
+                        </a>
                     </h5>
                     <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Traobject;
 use App\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,12 +92,28 @@ class CategoryController extends BaseController
         return $this->redirectToRoute('category_index');
     }
 
+
     public function footerCategory()
     {
         $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
         return $this->render('category/footer_category.html.twig', [
             "categories" => $categories
+        ]);
+    }
+
+    /**
+     * @Route("/show/{id}", name="category_show")
+     *
+     * @param Category $category
+     * @return Response
+     */
+    public function showTraobjectByCategory(Category $category)
+    {
+        $traobjects = $this->getDoctrine()->getRepository(Traobject::class)->findBy(["category" => $category], ["eventAt" => "DESC"]);
+        return $this->render('category/show.html.twig', [
+            'category' => $category,
+            'traobjects' => $traobjects
         ]);
     }
 }

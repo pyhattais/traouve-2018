@@ -56,7 +56,7 @@ class County
     /**
      * @return string
      */
-    public function getLabel(): string
+    public function getLabel(): ?string
     {
         return $this->label;
     }
@@ -74,7 +74,7 @@ class County
     /**
      * @return int
      */
-    public function getZipcode(): int
+    public function getZipcode(): ?int
     {
         return $this->zipcode;
     }

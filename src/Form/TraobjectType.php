@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\Traobject;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+
 
 class TraobjectType extends AbstractType
 {
@@ -14,15 +17,16 @@ class TraobjectType extends AbstractType
         $builder
             ->add('state')
             ->add('title')
-            ->add('picture')
+            ->add('pictureFile', VichFileType::class, [
+                'attr' => [
+                    'placeholder' => '.jpg',
+                ]])
             ->add('description')
-            ->add('eventAt')
+            ->add('eventAt', DateType::class, ['widget' => 'single_text'])
             ->add('city')
             ->add('address')
             ->add('category')
-            ->add('county')
-            ->add('user')
-        ;
+            ->add('county');
     }
 
     public function configureOptions(OptionsResolver $resolver)

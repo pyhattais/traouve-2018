@@ -5,12 +5,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * User
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="email_UNIQUE", columns={"email"})})
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface
 {
@@ -54,6 +58,13 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
 
     /**
      * @var string|null
@@ -66,8 +77,16 @@ class User implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     * @Assert\Image(mimeTypes={ "image/jpeg", "image/jpg", "image/png"  }, mimeTypesMessage = "Extension valide : .jpeg .png .jpg")
      */
     private $picture;
+
+    /**
+     * @Vich\UploadableField(mapping="user_pictures", fileNameProperty="picture")
+     * @var File
+     * @Assert\Image(mimeTypes={ "image/jpeg", "image/jpg", "image/png"  }, mimeTypesMessage = "Extension valide : .jpeg .png .jpg")
+     */
+    private $pictureFile;
 
 
     public function getId(): ?int
@@ -92,7 +111,7 @@ class User implements UserInterface
      *
      * @see UserInterface
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return (string) $this->email;
     }
@@ -226,6 +245,27 @@ class User implements UserInterface
     }
 
     /**
+     * @param File|null $picture
+     */
+    public function setPictureFile(File $picture = null)
+    {
+        $this->pictureFile = $picture;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($picture) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getPictureFile()
+    {
+        return $this->pictureFile;
+    }
+
+    /**
      * @return null|string
      */
     public function getPicture(): ?string
@@ -240,6 +280,24 @@ class User implements UserInterface
     public function setPicture(?string $picture): User
     {
         $this->picture = $picture;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime|null $updatedAt
+     * @return User
+     */
+    public function setUpdatedAt(?\DateTime $updatedAt): User
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 

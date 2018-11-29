@@ -75,7 +75,6 @@ class TraobjectFixtures extends Fixture implements DependentFixtureInterface
 
         $badge = new Traobject();
         $badge->setTitle("Badges et clés");
-        $badge->setPicture("");
         $badge->setDescription("J'ai trouvé un trousseau avec des badges et des clés, avec un poste clé rouge");
         $badge->setEventAt(new \DateTime());
         $badge->setCity("Rennes");

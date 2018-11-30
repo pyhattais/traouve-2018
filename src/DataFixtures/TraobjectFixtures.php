@@ -31,7 +31,7 @@ class TraobjectFixtures extends Fixture implements DependentFixtureInterface
         $doudou = new Traobject();
         $doudou->setTitle("Michou le Doudou");
         $doudou->setPicture("doudou.jpg");
-        $doudou->setDescription("J'ai perdu mon super doudou Michou, il est bleu et tout doux");
+        $doudou->setDescription("J'ai perdu mon super doudou Michou, il est rose et tout doux");
         $doudou->setEventAt(new \DateTime());
         $doudou->setCity("Rennes");
         $doudou->setAddress("Place des lices");
